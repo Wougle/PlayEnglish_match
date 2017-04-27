@@ -901,7 +901,7 @@
     
     NSLog(@"%@。",rangeStr);
     for (int i = 0; i < tableMuArr.count; i++) {
-        NSString *str = tableMuArr[i][@"voiceUS"];
+        NSString *str = tableMuArr[i][@"voice"];
         if ([str compare:rangeStr]==NSOrderedSame) {
             _foldBtn.selected = NO;
             isFold = 0;

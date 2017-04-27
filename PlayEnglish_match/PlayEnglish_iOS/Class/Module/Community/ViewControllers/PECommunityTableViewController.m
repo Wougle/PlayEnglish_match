@@ -107,7 +107,7 @@ static NSString *const kCommunityTableViewCellIdentify = @"kCommunityTableViewCe
                   @"time":@"11-11 7:32",
                   @"isFollow":@"0",
                   @"text":@"If not to the sun for smiling, warm is still in the sun there, but wewill laugh more confident calm; if turned to found his own shadow, appropriate escape, the sun will be through the heart,warm each place behind the corner; if an outstretched palm cannot fall butterfly, then clenched waving arms, given power; if I can't have bright smile, it will face to the sunshine, and sunshine smile together, in full bloom.",
-                  @"image":@"1",
+                  @"image":@"-1",
                   @"video":@"-1",
                   @"reply":@"14",
                   @"like":@"6",
@@ -241,6 +241,9 @@ static NSString *const kCommunityTableViewCellIdentify = @"kCommunityTableViewCe
         cell.detailLabel.numberOfLines = 0;
         [cell.detailLabel sizeToFit];
         cell.detailView.height = cell.detailLabel.frame.size.height + 20;
+        if (indexPath.row == commCount || indexPath.row == commCount-1) {
+            cell.detailView.height = cell.detailLabel.frame.size.height + 40;
+        }
         height += cell.detailView.height;
     }
     
@@ -272,6 +275,9 @@ static NSString *const kCommunityTableViewCellIdentify = @"kCommunityTableViewCe
     }
     [cell.likeBtn setTitle:tableMuArr[commCount - indexPath.row][@"like"] forState:UIControlStateNormal];
     cell.likePerson = [tableMuArr[commCount - indexPath.row][@"like"] integerValue];
+    
+    NSLog(@"%@ === height = %f",tableMuArr[commCount - indexPath.row][@"name"], height);
+    
     CGRect labelRect = cell.frame;
     labelRect.size.height = height;
     cell.frame = labelRect;
@@ -282,6 +288,7 @@ static NSString *const kCommunityTableViewCellIdentify = @"kCommunityTableViewCe
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     CommunityTableViewCell *cell=(CommunityTableViewCell*)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+
     return cell.frame.size.height;
 }
 
@@ -306,7 +313,7 @@ static NSString *const kCommunityTableViewCellIdentify = @"kCommunityTableViewCe
     [UserDefaultsUtils saveValue:tableMuArr[commCount - indexPath.row][@"reply"] forKey:@"detailReply"];
     [UserDefaultsUtils saveValue:tableMuArr[commCount - indexPath.row][@"like"] forKey:@"detailLike"];
     [UserDefaultsUtils saveValue:tableMuArr[commCount - indexPath.row][@"isLike"] forKey:@"detailIsLike"];
-
+    [UserDefaultsUtils saveValue:[NSString stringWithFormat:@"%f",cell.detailView.size.height] forKey:@"height"];
     
     self.hidesBottomBarWhenPushed  = YES;
     [self.navigationController pushViewController:vc animated:YES];

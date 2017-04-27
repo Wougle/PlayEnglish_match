@@ -25,6 +25,7 @@ static CGFloat TextViewFontSize=14;
     UIView *messageView;
     NSTimer *countDownTimer;
     int replyIdLocal;
+    int commCount;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIView *baView;
@@ -431,7 +432,7 @@ static CGFloat TextViewFontSize=14;
         [tableMuArr addObject:tableDic6];
     }
 
-    
+    commCount = (int)tableMuArr.count-1;
 //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 //    
 //    [HandlerBusiness ServiceWithApicode:ApiCodeGetReplyList Parameters:nil Success:^(id data , id msg){
@@ -544,6 +545,7 @@ static CGFloat TextViewFontSize=14;
         if (!cell) {
             cell=[[NSBundle mainBundle]loadNibNamed:@"CommunityTableViewCell" owner:self options:nil][0];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
         cell.index = indexPath;
         CGFloat height;
@@ -569,9 +571,9 @@ static CGFloat TextViewFontSize=14;
             cell.detailLabel.text = [UserDefaultsUtils valueWithKey:@"detailText"];
             cell.detailLabel.numberOfLines = 0;
             [cell.detailLabel sizeToFit];
-            cell.detailView.height = cell.detailLabel.frame.size.height;
-            height += cell.detailLabel.frame.size.height + 20;
-
+            cell.detailView.height = [[UserDefaultsUtils valueWithKey:@"height"] floatValue];
+            //cell.detailLabel.frame.size.height + 20;
+            height += cell.detailView.height;
         }
         
         if ([[UserDefaultsUtils valueWithKey:@"detailImage"]  isEqual: @"-1"]) {
@@ -613,6 +615,8 @@ static CGFloat TextViewFontSize=14;
         if (!cell) {
             cell=[[NSBundle mainBundle]loadNibNamed:@"PEDetailTableViewCell" owner:self options:nil][0];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         CGFloat height;
         height = 60;
         
