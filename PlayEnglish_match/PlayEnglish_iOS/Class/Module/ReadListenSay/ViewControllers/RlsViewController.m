@@ -868,16 +868,13 @@
 #pragma mark -- 看模式下，点击歌曲单词 显示这个单词
 
 - (void)highlightWordContainingCharacterAtIndex:(CFIndex)charIndex AndPPLabelText:(NSString *)text{
-    
     if (charIndex==NSNotFound) {
         
         //user did nat click on any word
         return;
     }
-    
     NSString* string = text;
     NSLog(@"%@",string);
-    
     //compute the positions of space characters next to the charIndex
     NSRange end = [string rangeOfString:@" " options:0 range:NSMakeRange(charIndex, string.length - charIndex)];
     NSRange front = [string rangeOfString:@" " options:NSBackwardsSearch range:NSMakeRange(0, charIndex)];
@@ -885,20 +882,16 @@
     if (front.location == NSNotFound) {
         front.location = 0; //first word was selected
     }
-    
     if (end.location == NSNotFound) {
         end.location = string.length-1; //last word was selected
     }
     
     NSRange wordRange = NSMakeRange(front.location, end.location-front.location);
-    
     if (front.location!=0) { //fix trimming
         wordRange.location += 1;
         wordRange.length -= 1;
     }
-    
     NSString *rangeStr = [string substringWithRange:wordRange];
-    
     NSLog(@"%@。",rangeStr);
     for (int i = 0; i < tableMuArr.count; i++) {
         NSString *str = tableMuArr[i][@"voice"];

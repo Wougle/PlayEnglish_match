@@ -160,7 +160,7 @@ static NSString *const kCommunityTableViewCellIdentify = @"kCommunityTableViewCe
     
     cell.commID = [tableMuArr[indexPath.row][@"commID"] integerValue];
     cell.personalHeadImgView.image = [UIImage imageNamed:tableMuArr[indexPath.row][@"headImg"]];
-    cell.personalNameLabel.text = tableMuArr[indexPath.row][@"nickName"];
+    cell.personalNameLabel.text = tableMuArr[indexPath.row][@"name"];
     cell.personalTimeLabel.text = tableMuArr[indexPath.row][@"time"];
     
     if ([tableMuArr[indexPath.row][@"isFollow"]  isEqual: @"0"]) {
@@ -239,7 +239,7 @@ static NSString *const kCommunityTableViewCellIdentify = @"kCommunityTableViewCe
     vc.commID = cell.commID;
 
     [UserDefaultsUtils saveValue:tableMuArr[indexPath.row][@"headImg"] forKey:@"detailHeadImage"];
-    [UserDefaultsUtils saveValue:tableMuArr[indexPath.row][@"nickName"] forKey:@"detailName"];
+    [UserDefaultsUtils saveValue:tableMuArr[indexPath.row][@"name"] forKey:@"detailName"];
     [UserDefaultsUtils saveValue:tableMuArr[indexPath.row][@"time"] forKey:@"detailTime"];
     [UserDefaultsUtils saveValue:tableMuArr[indexPath.row][@"isFollow"] forKey:@"detailIsFollow"];
     [UserDefaultsUtils saveValue:tableMuArr[indexPath.row][@"text"] forKey:@"detailText"];
@@ -248,6 +248,12 @@ static NSString *const kCommunityTableViewCellIdentify = @"kCommunityTableViewCe
     [UserDefaultsUtils saveValue:tableMuArr[indexPath.row][@"reply"] forKey:@"detailReply"];
     [UserDefaultsUtils saveValue:tableMuArr[indexPath.row][@"like"] forKey:@"detailLike"];
     [UserDefaultsUtils saveValue:tableMuArr[indexPath.row][@"isLike"] forKey:@"detailIsLike"];
+    if (indexPath.row == 0) {
+        [UserDefaultsUtils saveValue:[NSString stringWithFormat:@"%f",cell.detailView.size.height+35] forKey:@"height"];
+    }
+    else{
+        [UserDefaultsUtils saveValue:[NSString stringWithFormat:@"%f",cell.detailView.size.height+20] forKey:@"height"];
+    }
     
     self.hidesBottomBarWhenPushed  = YES;
     [self.navigationController pushViewController:vc animated:YES];

@@ -418,26 +418,29 @@ PronounceBtnCellDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
 
-//    //获取正确答案
-//    NSString *rightAnswer = [_wordArr[textField.tag - 1000][@"wordName"] substringFromIndex:1];
-//    
-//    //判断答案
-//    if (rightAnswer == theAnswer) {
-//        NSLog(@"success");
-//        [self alertWithMessage:@"拼写正确o(∩_∩)o"];
-//    }
-//    else{
-//        NSLog(@"fail");
-//        [self alertWithMessage:@"拼写错误o(╯□╰)o"];
-//    }
-//    [textField resignFirstResponder];
-    [self alertWithMessage:@"拼写正确o(∩_∩)o"];
+    //获取正确答案
+    NSString *rightAnswer = [_wordArr[textField.tag - 1000][@"voice"] substringFromIndex:1];
+    
+    //判断答案
+    if (rightAnswer == theAnswer) {
+        NSLog(@"success");
+        [self alertWithMessage:@"拼写正确o(∩_∩)o"];
+    }
+    else{
+        NSLog(@"fail");
+        [self alertWithMessage:@"拼写错误o(╯□╰)o"];
+    }
+    [textField resignFirstResponder];
+    //[self alertWithMessage:@"拼写正确o(∩_∩)o"];
     return YES;
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+   
+    UITextField *tf = (UITextField *)[self.view viewWithTag:(1000+indexPath.row)];
+    [tf resignFirstResponder];
     NSLog(@"选中---%ld", indexPath.row);
 }
 
