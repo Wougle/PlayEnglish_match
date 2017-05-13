@@ -9,6 +9,8 @@
 #ifndef Constants_h
 #define Constants_h
 
+#define version master
+
 #define kTimeSpan 1.5
 //color
 #define Rgb2UIColor(r, g, b, a)        [UIColor colorWithRed:((r) / 255.0) green:((g) / 255.0) blue:((b) / 255.0) alpha:((a)/1.0)]
